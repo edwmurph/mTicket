@@ -1,9 +1,35 @@
 import React, { Component } from 'react';
 import './App.css';
 
+// NOTE: Readville and Anderson/Woburn each have 2 entries.
+// Each stop should only have a single entry with all lines that pass through it.
+const commuterRailData = require('./commuterrail-data.json');
+
+class CommuterRailStopsList extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>commuter rail stops</p>
+        <ul>
+          {commuterRailData.map(stop =>
+            <li key='key'>
+              {stop.route}
+            </li>
+          )}
+        </ul>
+      </div>
+    );
+  }
+}
+
 class TicketSelection extends React.Component {
   render() {
-    return <p>ticket selection view</p>;
+    return (
+      <div>
+      <p>ticket selection view</p>
+      <CommuterRailStopsList />
+      </div>
+    );
   }
 }
 
