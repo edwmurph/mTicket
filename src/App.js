@@ -9,7 +9,7 @@ class CommuterRailStopsList extends React.Component {
   render() {
     return (
       <div>
-        <p>commuter rail stops</p>
+        <p>Select a {this.props.name} stop</p>
         <ul>
           {commuterRailData.map(stop =>
             <li key='key'>
@@ -23,11 +23,22 @@ class CommuterRailStopsList extends React.Component {
 }
 
 class TicketSelection extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedOrigin: null,
+      selectedDestination: null,
+    };
+  }
+
   render() {
     return (
       <div>
       <p>ticket selection view</p>
-      <CommuterRailStopsList />
+      <div style={{display:'flex', 'flex-direction':'row'}}>
+        <CommuterRailStopsList name='origin'/>
+        <CommuterRailStopsList name='destination'/>
+      </div>
       </div>
     );
   }
