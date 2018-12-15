@@ -10,9 +10,10 @@ class CommuterRailStopsList extends React.Component {
     return (
       <div>
         <p>Select a {this.props.name} stop</p>
+        <p>Currently selected: {this.props.selected}</p>
         <ul>
           {commuterRailData.map(stop =>
-            <li key='key'>
+            <li onClick={() => this.props.onSelect(stop.route)} >
               {stop.route}
             </li>
           )}
@@ -31,13 +32,25 @@ class TicketSelection extends React.Component {
     };
   }
 
+  selectOrigin(origin) {
+    this.setState({
+      selectedOrigin: origin,
+    });
+  }
+
+  selectDestination(destination) {
+    this.setState({
+      selectedDestination: destination,
+    });
+  }
+
   render() {
     return (
       <div>
       <p>ticket selection view</p>
       <div style={{display:'flex', 'flex-direction':'row'}}>
-        <CommuterRailStopsList name='origin'/>
-        <CommuterRailStopsList name='destination'/>
+        <CommuterRailStopsList name='origin' selected={this.state.selectedOrigin} onSelect={this.selectOrigin.bind(this)} />
+        <CommuterRailStopsList name='destination' selected={this.state.selectedDestination} onSelect={this.selectDestination.bind(this)} />
       </div>
       </div>
     );
