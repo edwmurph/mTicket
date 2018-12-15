@@ -47,17 +47,23 @@ class App extends Component {
       <HashRouter>
         <div className="App">
           <header className="App-header">
-            <NavButton name='Home' changeView={this.changeView.bind(this)} view={views.HOME} />
-            <NavButton name='Purchase Tickets' changeView={this.changeView.bind(this)} view={views.PURCHASING} />
-            <NavButton name='Ticket History' changeView={this.changeView.bind(this)} view={views.HISTORY} />
             { this.state.view === views.HOME && (
-              <p>HOME</p>
+              <div>
+                <NavButton name='Purchase Tickets' changeView={this.changeView.bind(this)} view={views.PURCHASING} />
+                <NavButton name='Ticket History' changeView={this.changeView.bind(this)} view={views.HISTORY} />
+              </div>
             )}
             { this.state.view === views.PURCHASING && (
-              <p>PURCHASING</p>
+              <div>
+                <NavButton name='Home' changeView={this.changeView.bind(this)} view={views.HOME} />
+                <p>PURCHASING</p>
+              </div>
             )}
             { this.state.view === views.HISTORY && (
-              <p>HISTORY</p>
+              <div>
+                <NavButton name='Home' changeView={this.changeView.bind(this)} view={views.HOME} />
+                <p>HISTORY</p>
+              </div>
             )}
           </header>
         </div>
