@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
-import TicketHistory from './TicketHistory';
-import PurchaseTickets from './PurchaseTickets';
-import {
-  Route,
-  NavLink,
-  HashRouter
-} from "react-router-dom";
 
 class TicketSelection extends React.Component {
   render() {
     return <p>ticket selection view</p>;
+  }
+}
+
+class PurchaseHistory extends React.Component {
+  render() {
+    return <p>purchase history view</p>;
   }
 }
 
@@ -44,30 +43,28 @@ class App extends Component {
 
   render() {
     return (
-      <HashRouter>
-        <div className="App">
-          <header className="App-header">
-            { this.state.view === views.HOME && (
-              <div>
-                <NavButton name='Purchase Tickets' changeView={this.changeView.bind(this)} view={views.PURCHASING} />
-                <NavButton name='Ticket History' changeView={this.changeView.bind(this)} view={views.HISTORY} />
-              </div>
-            )}
-            { this.state.view === views.PURCHASING && (
-              <div>
-                <NavButton name='Home' changeView={this.changeView.bind(this)} view={views.HOME} />
-                <p>PURCHASING</p>
-              </div>
-            )}
-            { this.state.view === views.HISTORY && (
-              <div>
-                <NavButton name='Home' changeView={this.changeView.bind(this)} view={views.HOME} />
-                <p>HISTORY</p>
-              </div>
-            )}
-          </header>
-        </div>
-      </HashRouter>
+      <div className="App">
+        <header className="App-header">
+          { this.state.view === views.HOME && (
+            <div>
+              <NavButton name='Purchase Tickets' changeView={this.changeView.bind(this)} view={views.PURCHASING} />
+              <NavButton name='Ticket History' changeView={this.changeView.bind(this)} view={views.HISTORY} />
+            </div>
+          )}
+          { this.state.view === views.PURCHASING && (
+            <div>
+              <NavButton name='Home' changeView={this.changeView.bind(this)} view={views.HOME} />
+              <TicketSelection />
+            </div>
+          )}
+          { this.state.view === views.HISTORY && (
+            <div>
+              <NavButton name='Home' changeView={this.changeView.bind(this)} view={views.HOME} />
+              <PurchaseHistory />
+            </div>
+          )}
+        </header>
+      </div>
     );
   }
 }
