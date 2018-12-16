@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+const UUID = require('uuid');
 
 // NOTE: Readville and Anderson/Woburn each have 2 entries.
 // Each stop should only have a single entry with all lines that pass through it.
@@ -56,7 +57,7 @@ class CommuterRailStopsList extends React.Component {
                   // display stops in alphabetical order
                   .sort()
                   .map(stop =>
-                    <li onClick={() => this.props.updateSelection(stop)} >
+                    <li key={UUID.v1()} onClick={() => this.props.updateSelection(stop)} >
                       {stop}
                     </li>
                   )
@@ -159,7 +160,7 @@ class TicketSelection extends React.Component {
     return (
       <div>
         <p>ticket selection view</p>
-        <div style={{display:'flex', 'flex-direction':'row'}}>
+        <div style={{display:'flex', flexDirection:'row'}}>
           <CommuterRailStopsList
             type='origin'
             altType='destination'
@@ -199,7 +200,7 @@ class PurchaseHistory extends React.Component {
         <p>purchase history view</p>
         <ul>
           {this.props.purchases.map(purchase =>
-            <li>{`origin: ${purchase.origin} | destination: ${purchase.destination}`}</li>
+            <li key={UUID.v1()}>{`origin: ${purchase.origin} | destination: ${purchase.destination}`}</li>
           )}
         </ul>
       </div>
