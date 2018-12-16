@@ -27,35 +27,44 @@ class CommuterRailStopsList extends React.Component {
   render() {
     return (
       <div>
-        { this.props.selections[this.props.type] && (
-          <div>
-            <button onClick={() => this.props.updateSelection(null)}>
-              Reset selection
-            </button>
-            <p>selected {this.props.selections[this.props.type]}</p>
-          </div>
-        ) || (
-          <div>
-            <p>Select a {this.props.type} stop</p>
-            <ul>
-              {
-                [...new Set([].concat(...
-                  (this.props.selections[this.props.altType]
-                    ? [...(CR_STOPS[this.props.selections[this.props.altType]])]
-                    : Object.keys(CR_LINES)
-                  ).map(line => [...CR_LINES[line]])
-                ))]
-                .filter(item => item !== this.props.selections[this.props.altType])
-                .sort()
-                .map(stop =>
-                  <li onClick={() => this.props.updateSelection(stop)} >
-                    {stop}
-                  </li>
-                )
-              }
-            </ul>
-          </div>
-        )}
+        {
+          ( this.props.selections[this.props.type]
+            && (
+              <div>
+                <button onClick={() => this.props.updateSelection(null)}>
+                  Reset selection
+                </button>
+                <p>selected {this.props.selections[this.props.type]}</p>
+              </div>
+            )
+          )
+          || (
+            <div>
+              <p>Select a {this.props.type} stop</p>
+              <ul>
+                {
+                  // only show stops on the same line as the other selection
+                  [...new Set([].concat(
+                    ...(
+                      this.props.selections[this.props.altType]
+                        ? [...(CR_STOPS[this.props.selections[this.props.altType]])]
+                        : Object.keys(CR_LINES)
+                    ).map(line => [...CR_LINES[line]])
+                  ))]
+                  // filter out the other selection if it exists
+                  .filter(item => item !== this.props.selections[this.props.altType])
+                  // display stops in alphabetical order
+                  .sort()
+                  .map(stop =>
+                    <li onClick={() => this.props.updateSelection(stop)} >
+                      {stop}
+                    </li>
+                  )
+                }
+              </ul>
+            </div>
+          )
+        }
       </div>
     );
   }
@@ -219,7 +228,6 @@ class App extends Component {
   }
 
   purchaseTicket(origin, destination) {
-    console.log(`inside purchaseTicket: origin: '${origin}'`);
     this.setState({
       purchases: this.state.purchases.concat([{ origin, destination }]),
     });
