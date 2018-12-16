@@ -106,20 +106,28 @@ class TicketPurchaseMain extends React.Component {
                 selectedDestination: this.state.selectedDestination,
               }}/>
             {this.state.selectedOrigin && this.state.selectedDestination && (
-              <NavButton
-                name='Purchase Ticket'
-                changeView={this.changeView.bind(this)}
-                view={this.views.CONFIRMATION}
-                context={{origin: this.selectedOrigin, destination: this.selectedDestination}} />
+              <div>
+                <button onClick={() => this.changeView(this.views.CONFIRMATION)}>
+                  Purchase Ticket
+                </button>
+              </div>
             )}
           </div>
         )}
         {(this.state.view === this.views.CONFIRMATION) &&
-          <TicketConfirmation
-            context={{
-              origin: this.state.selectedOrigin,
-              destination: this.state.selectedDestination,
-            }} />
+          <div>
+            <button onClick={() => this.changeView(this.views.PURCHASING)}>
+              Cancel
+            </button>
+            <button onClick={() => this.changeView(this.views.PURCHASING)}>
+              Purchase
+            </button>
+            <TicketConfirmation
+              context={{
+                origin: this.state.selectedOrigin,
+                destination: this.state.selectedDestination,
+              }} />
+          </div>
         }
       </div>
     );
@@ -170,16 +178,6 @@ class PurchaseHistory extends React.Component {
   }
 }
 
-class NavButton extends React.Component {
-  render() {
-    return (
-      <button onClick={() => this.props.changeView(this.props.view)}>
-        {this.props.name}
-      </button>
-    );
-  }
-}
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -203,19 +201,27 @@ class App extends Component {
         <header className="App-header">
           { this.state.view === this.views.HOME && (
             <div>
-              <NavButton name='Purchase Tickets' changeView={this.changeView.bind(this)} view={this.views.PURCHASING} />
-              <NavButton name='Ticket History' changeView={this.changeView.bind(this)} view={this.views.HISTORY} />
+              <button onClick={() => this.changeView(this.views.PURCHASING)}>
+                Purchase Tickets
+              </button>
+              <button onClick={() => this.changeView(this.views.HISTORY)}>
+                Ticket History
+              </button>
             </div>
           )}
           { this.state.view === this.views.PURCHASING && (
             <div>
-              <NavButton name='Home' changeView={this.changeView.bind(this)} view={this.views.HOME} />
+              <button onClick={() => this.changeView(this.views.HOME)}>
+                Home
+              </button>
               <TicketPurchaseMain changeView={this.changeView.bind(this)} view={this.views.CONFIRMATION}/>
             </div>
           )}
           { this.state.view === this.views.HISTORY && (
             <div>
-              <NavButton name='Home' changeView={this.changeView.bind(this)} view={this.views.HOME} />
+              <button onClick={() => this.changeView(this.views.HOME)}>
+                Home
+              </button>
               <PurchaseHistory />
             </div>
           )}
