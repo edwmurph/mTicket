@@ -34,7 +34,7 @@ class CommuterRailStopsList extends React.Component {
           ( this.props.selections[this.props.type]
             && (
               <div>
-                <button onClick={() => this.props.updateSelection(null)}>
+                <button className='custom-button' onClick={() => this.props.updateSelection(null)}>
                   Reset selection
                 </button>
                 <p>selected {this.props.selections[this.props.type]}</p>
@@ -127,7 +127,7 @@ class TicketPurchaseMain extends React.Component {
               }}/>
             {this.state.selectedOrigin && this.state.selectedDestination && (
               <div>
-                <button onClick={() => this.changeView(this.views.CONFIRMATION)}>
+                <button className='custom-button' onClick={() => this.changeView(this.views.CONFIRMATION)}>
                   Purchase Ticket
                 </button>
               </div>
@@ -136,10 +136,10 @@ class TicketPurchaseMain extends React.Component {
         )}
         {(this.state.view === this.views.CONFIRMATION) &&
           <div>
-            <button onClick={() => this.changeView(this.views.PURCHASING)}>
+            <button className='custom-button' onClick={() => this.changeView(this.views.PURCHASING)}>
               Change Selections
             </button>
-            <button onClick={() => {
+            <button className='custom-button' onClick={() => {
               this.purchaseTicket();
               this.props.notify('Purchase successful!');
               return this.changeView(this.views.PURCHASING);
@@ -250,17 +250,17 @@ class App extends Component {
           <ToastContainer autoClose={3000} />
           { this.state.view === this.views.HOME && (
             <div>
-              <button onClick={() => this.changeView(this.views.PURCHASING)}>
+              <button className='custom-button' onClick={() => this.changeView(this.views.PURCHASING)}>
                 Purchase Tickets
               </button>
-              <button onClick={() => this.changeView(this.views.HISTORY)}>
+              <button className='custom-button' onClick={() => this.changeView(this.views.HISTORY)}>
                 Ticket History
               </button>
             </div>
           )}
           { this.state.view === this.views.PURCHASING && (
             <div>
-              <button onClick={() => this.changeView(this.views.HOME)}>
+              <button className='custom-button' onClick={() => this.changeView(this.views.HOME)}>
                 Home
               </button>
               <TicketPurchaseMain
@@ -272,7 +272,7 @@ class App extends Component {
           )}
           { this.state.view === this.views.HISTORY && (
             <div>
-              <button onClick={() => this.changeView(this.views.HOME)}>
+              <button className='custom-button' onClick={() => this.changeView(this.views.HOME)}>
                 Home
               </button>
               <PurchaseHistory purchases={this.state.purchases} />
