@@ -23,15 +23,40 @@
 }
 
 ul {
-   list-style: none;
-   margin: 0;
-   padding: 0;
+  list-style: none;
+  margin: 10px;
+  padding: 0;
+  border: 1px solid black;
+}
+
+li {
+  border: 1px solid black;
+  padding: 20px;
+}
+
+li:hover {
+  background-color: #647390;
+}
+
+.home-button {
+  display: block;
+  margin: 30px;
+  justify-content: center;
+  position:absolute;
+  top:0;
+  left:0;
+  font-size: 20px;
+  border-radius: 8px;
 }
 
 .custom-button {
   display: block;
-  margin: 30px auto;
+  margin: 30px;
+  display: flex;
+  justify-content: center;
   height: 60px;
   width: 300px;
   font-size: 20px;
+  border-radius: 8px;
 }
+

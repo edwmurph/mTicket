@@ -34,10 +34,11 @@ class CommuterRailStopsList extends React.Component {
           ( this.props.selections[this.props.type]
             && (
               <div>
+                <p>Selected {this.props.type}:</p>
+                <p>{this.props.selections[this.props.type]}</p>
                 <button className='custom-button' onClick={() => this.props.updateSelection(null)}>
-                  Reset selection
+                  Undo selection
                 </button>
-                <p>selected {this.props.selections[this.props.type]}</p>
               </div>
             )
           )
@@ -250,6 +251,7 @@ class App extends Component {
           <ToastContainer autoClose={3000} />
           { this.state.view === this.views.HOME && (
             <div>
+              <img src="mbta.png" alt="mbta logo" />
               <button className='custom-button' onClick={() => this.changeView(this.views.PURCHASING)}>
                 Purchase Tickets
               </button>
@@ -260,9 +262,7 @@ class App extends Component {
           )}
           { this.state.view === this.views.PURCHASING && (
             <div>
-              <button className='custom-button' onClick={() => this.changeView(this.views.HOME)}>
-                Home
-              </button>
+              <img src="mbta_icon.png" alt="Home" className="home-button" onClick={() => this.changeView(this.views.HOME)}/>
               <TicketPurchaseMain
                 purchaseTicket={this.purchaseTicket.bind(this)}
                 notify={this.notify.bind(this)}
@@ -272,9 +272,7 @@ class App extends Component {
           )}
           { this.state.view === this.views.HISTORY && (
             <div>
-              <button className='custom-button' onClick={() => this.changeView(this.views.HOME)}>
-                Home
-              </button>
+              <img src="mbta_icon.png" alt="Home" className="home-button" onClick={() => this.changeView(this.views.HOME)}/>
               <PurchaseHistory purchases={this.state.purchases} />
             </div>
           )}
