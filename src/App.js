@@ -23,14 +23,6 @@ CR_DATA.forEach(({route, line: lines}) => {
   });
 });
 
-const VIEWS = Object.freeze({
-  HOME: 1,
-  PURCHASING: 2,
-  HISTORY: 3,
-  CONFIRMATION: 4,
-});
-
-
 class CommuterRailStopsList extends React.Component {
   render() {
     return (
@@ -72,10 +64,14 @@ class CommuterRailStopsList extends React.Component {
 class TicketPurchaseMain extends React.Component {
   constructor(props) {
     super(props);
+    this.views = {
+      PURCHASING: 0,
+      CONFIRMATION: 1,
+    };
     this.state = {
       selectedOrigin: null,
       selectedDestination: null,
-      view: VIEWS.PURCHASING,
+      view: this.views.PURCHASING,
     };
   }
 
@@ -100,7 +96,7 @@ class TicketPurchaseMain extends React.Component {
   render() {
     return (
       <div>
-        {(this.state.view === VIEWS.PURCHASING) && (
+        {(this.state.view === this.views.PURCHASING) && (
           <div>
             <TicketSelection
               selectDestination={this.selectDestination.bind(this)}
@@ -113,12 +109,12 @@ class TicketPurchaseMain extends React.Component {
               <NavButton
                 name='Purchase Ticket'
                 changeView={this.changeView.bind(this)}
-                view={VIEWS.CONFIRMATION}
+                view={this.views.CONFIRMATION}
                 context={{origin: this.selectedOrigin, destination: this.selectedDestination}} />
             )}
           </div>
         )}
-        {(this.state.view === VIEWS.CONFIRMATION) &&
+        {(this.state.view === this.views.CONFIRMATION) &&
           <TicketConfirmation
             context={{
               origin: this.state.selectedOrigin,
@@ -187,7 +183,12 @@ class NavButton extends React.Component {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { view: VIEWS.HOME }
+    this.views = {
+      HOME: 0,
+      PURCHASING: 1,
+      HISTORY: 2,
+    };
+    this.state = { view: this.views.HOME }
   }
 
   changeView(newView) {
@@ -200,28 +201,22 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          { this.state.view === VIEWS.HOME && (
+          { this.state.view === this.views.HOME && (
             <div>
-              <NavButton name='Purchase Tickets' changeView={this.changeView.bind(this)} view={VIEWS.PURCHASING} />
-              <NavButton name='Ticket History' changeView={this.changeView.bind(this)} view={VIEWS.HISTORY} />
+              <NavButton name='Purchase Tickets' changeView={this.changeView.bind(this)} view={this.views.PURCHASING} />
+              <NavButton name='Ticket History' changeView={this.changeView.bind(this)} view={this.views.HISTORY} />
             </div>
           )}
-          { this.state.view === VIEWS.PURCHASING && (
+          { this.state.view === this.views.PURCHASING && (
             <div>
-              <NavButton name='Home' changeView={this.changeView.bind(this)} view={VIEWS.HOME} />
-              <TicketPurchaseMain changeView={this.changeView.bind(this)} view={VIEWS.CONFIRMATION}/>
+              <NavButton name='Home' changeView={this.changeView.bind(this)} view={this.views.HOME} />
+              <TicketPurchaseMain changeView={this.changeView.bind(this)} view={this.views.CONFIRMATION}/>
             </div>
           )}
-          { this.state.view === VIEWS.HISTORY && (
+          { this.state.view === this.views.HISTORY && (
             <div>
-              <NavButton name='Home' changeView={this.changeView.bind(this)} view={VIEWS.HOME} />
+              <NavButton name='Home' changeView={this.changeView.bind(this)} view={this.views.HOME} />
               <PurchaseHistory />
-            </div>
-          )}
-          { this.state.view === VIEWS.CONFIRMATION && (
-            <div>
-              <NavButton name='Cancel' changeView={this.changeView.bind(this)} view={VIEWS.PURCHASING} />
-              <TicketConfirmation />
             </div>
           )}
         </header>
