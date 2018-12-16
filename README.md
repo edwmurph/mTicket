@@ -4,7 +4,7 @@ The 2 functionalities that this application simulates are:
 - purchasing commuter rail tickets
 - viewing ticket purchase history
 
-![](./ui-diagram.png?raw=true)
+![](./public/mTicket_screenshot.png?raw=true)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
