@@ -2,12 +2,8 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
 .App-header {
+  border-top: 50px solid #282c34;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,20 +18,37 @@
   color: #61dafb;
 }
 
-ul {
+ul.ticket-selection {
   list-style: none;
   margin: 10px;
   padding: 0;
-  border: 1px solid black;
 }
 
-li {
+li.ticket-selection {
   border: 1px solid black;
   padding: 20px;
+  margin: 5px;
+  box-shadow: 10px;
+  background-color: #3a4356;
+  border-radius: 8px;
 }
 
-li:hover {
+li.ticket-selection:hover {
   background-color: #647390;
+}
+
+.continue-button {
+  display: block;
+  margin: 30px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 60px;
+  width: 300px;
+  font-size: 20px;
+  border-radius: 8px;
 }
 
 .home-button {

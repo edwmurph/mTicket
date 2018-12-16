@@ -44,8 +44,8 @@ class CommuterRailStopsList extends React.Component {
           )
           || (
             <div>
-              <p>Select a {this.props.type} stop</p>
-              <ul>
+              <p>Select a {this.props.type} stop:</p>
+              <ul class="ticket-selection">
                 {
                   // only show stops on the same line as the other selection
                   [...new Set([].concat(
@@ -60,7 +60,7 @@ class CommuterRailStopsList extends React.Component {
                   // display stops in alphabetical order
                   .sort()
                   .map(stop =>
-                    <li key={UUID.v1()} onClick={() => this.props.updateSelection(stop)} >
+                    <li class="ticket-selection" key={UUID.v1()} onClick={() => this.props.updateSelection(stop)} >
                       {stop}
                     </li>
                   )
@@ -128,8 +128,8 @@ class TicketPurchaseMain extends React.Component {
               }}/>
             {this.state.selectedOrigin && this.state.selectedDestination && (
               <div>
-                <button className='custom-button' onClick={() => this.changeView(this.views.CONFIRMATION)}>
-                  Purchase Ticket
+                <button className='continue-button' onClick={() => this.changeView(this.views.CONFIRMATION)}>
+                  Continue ⟶
                 </button>
               </div>
             )}
@@ -163,7 +163,6 @@ class TicketSelection extends React.Component {
   render() {
     return (
       <div>
-        <p>ticket selection view</p>
         <div style={{display:'flex', flexDirection:'row'}}>
           <CommuterRailStopsList
             type='origin'
@@ -262,7 +261,7 @@ class App extends Component {
           )}
           { this.state.view === this.views.PURCHASING && (
             <div>
-              <img src="mbta_icon.png" alt="Home" className="home-button" onClick={() => this.changeView(this.views.HOME)}/>
+              <img src="mbta_icon_back.png" alt="Home" className="home-button" onClick={() => this.changeView(this.views.HOME)}/>
               <TicketPurchaseMain
                 purchaseTicket={this.purchaseTicket.bind(this)}
                 notify={this.notify.bind(this)}
@@ -272,7 +271,7 @@ class App extends Component {
           )}
           { this.state.view === this.views.HISTORY && (
             <div>
-              <img src="mbta_icon.png" alt="Home" className="home-button" onClick={() => this.changeView(this.views.HOME)}/>
+              <img src="mbta_icon_back.png" alt="Home" className="home-button" onClick={() => this.changeView(this.views.HOME)}/>
               <PurchaseHistory purchases={this.state.purchases} />
             </div>
           )}
