@@ -87,6 +87,14 @@ class TicketPurchaseMain extends React.Component {
     });
   }
 
+  purchaseTicket() {
+    this.props.purchaseTicket(this.state.selectedOrigin, this.state.selectedDestination);
+    this.setState({
+      selectedOrigin: null,
+      selectedDestination: null,
+    })
+  }
+
   changeView(newView) {
     this.setState({
       view: newView,
@@ -117,9 +125,12 @@ class TicketPurchaseMain extends React.Component {
         {(this.state.view === this.views.CONFIRMATION) &&
           <div>
             <button onClick={() => this.changeView(this.views.PURCHASING)}>
-              Cancel
+              Change Selections
             </button>
-            <button onClick={() => this.changeView(this.views.PURCHASING)}>
+            <button onClick={() => {
+              this.purchaseTicket();
+              return this.changeView(this.views.PURCHASING);
+            }}>
               Purchase
             </button>
             <TicketConfirmation
@@ -174,7 +185,16 @@ class TicketConfirmation extends React.Component {
 
 class PurchaseHistory extends React.Component {
   render() {
-    return <p>purchase history view</p>;
+    return (
+      <div>
+        <p>purchase history view</p>
+        <ul>
+          {this.props.purchases.map(purchase =>
+            <li>{`origin: ${purchase.origin} | destination: ${purchase.destination}`}</li>
+          )}
+        </ul>
+      </div>
+    );
   }
 }
 
@@ -186,12 +206,22 @@ class App extends Component {
       PURCHASING: 1,
       HISTORY: 2,
     };
-    this.state = { view: this.views.HOME }
+    this.state = {
+      view: this.views.HOME,
+      purchases: [],
+    }
   }
 
   changeView(newView) {
     this.setState({
       view: newView
+    });
+  }
+
+  purchaseTicket(origin, destination) {
+    console.log(`inside purchaseTicket: origin: '${origin}'`);
+    this.setState({
+      purchases: this.state.purchases.concat([{ origin, destination }]),
     });
   }
 
@@ -214,7 +244,10 @@ class App extends Component {
               <button onClick={() => this.changeView(this.views.HOME)}>
                 Home
               </button>
-              <TicketPurchaseMain changeView={this.changeView.bind(this)} view={this.views.CONFIRMATION}/>
+              <TicketPurchaseMain
+                purchaseTicket={this.purchaseTicket.bind(this)}
+                changeView={this.changeView.bind(this)}
+                view={this.views.CONFIRMATION} />
             </div>
           )}
           { this.state.view === this.views.HISTORY && (
@@ -222,7 +255,7 @@ class App extends Component {
               <button onClick={() => this.changeView(this.views.HOME)}>
                 Home
               </button>
-              <PurchaseHistory />
+              <PurchaseHistory purchases={this.state.purchases} />
             </div>
           )}
         </header>
