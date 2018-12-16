@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const UUID = require('uuid');
 
 // NOTE: Readville and Anderson/Woburn each have 2 entries.
@@ -139,6 +141,7 @@ class TicketPurchaseMain extends React.Component {
             </button>
             <button onClick={() => {
               this.purchaseTicket();
+              this.props.notify('Purchase successful!');
               return this.changeView(this.views.PURCHASING);
             }}>
               Purchase
@@ -234,10 +237,17 @@ class App extends Component {
     });
   }
 
+  notify(msg){
+    if (msg) {
+      toast(msg);
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
+          <ToastContainer autoClose={3000} />
           { this.state.view === this.views.HOME && (
             <div>
               <button onClick={() => this.changeView(this.views.PURCHASING)}>
@@ -255,6 +265,7 @@ class App extends Component {
               </button>
               <TicketPurchaseMain
                 purchaseTicket={this.purchaseTicket.bind(this)}
+                notify={this.notify.bind(this)}
                 changeView={this.changeView.bind(this)}
                 view={this.views.CONFIRMATION} />
             </div>
