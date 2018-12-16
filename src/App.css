@@ -37,10 +37,24 @@ li.ticket-selection:hover {
   background-color: #647390;
 }
 
+ul.purchase-history {
+  list-style: none;
+  margin: 10px;
+  padding: 0;
+}
+
+li.purchase-history {
+  border: 1px solid black;
+  padding: 20px;
+  margin: 5px;
+  box-shadow: 10px;
+  background-color: #3a4356;
+  border-radius: 8px;
+}
+
 .continue-button {
   display: block;
   margin: 30px;
-  display: flex;
   justify-content: center;
   position: absolute;
   bottom: 0;
@@ -62,10 +76,23 @@ li.ticket-selection:hover {
   border-radius: 8px;
 }
 
-.custom-button {
+.home-button:hover {
+  opacity: 0.7;
+}
+
+.undo-button {
   display: block;
   margin: 30px;
-  display: flex;
+  justify-content: center;
+  height: 60px;
+  width: 300px;
+  font-size: 20px;
+  border-radius: 8px;
+}
+
+.custom-button {
+  display: block;
+  margin: 30px auto;
   justify-content: center;
   height: 60px;
   width: 300px;

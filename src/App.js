@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const UUID = require('uuid');
 
-// NOTE: Readville and Anderson/Woburn each have 2 entries.
+// NOTE: Readville and Anderson/Woburn each have 2 entries in commuterrail-data.json
 // Each stop should only have a single entry with all lines that pass through it.
 const CR_DATA = require('./commuterrail-data.json');
 // e.g. { Wilmington: <Set>[CR-Haverhill, CR-Lowell], ... }
@@ -36,7 +36,7 @@ class CommuterRailStopsList extends React.Component {
               <div>
                 <p>Selected {this.props.type}:</p>
                 <p>{this.props.selections[this.props.type]}</p>
-                <button className='custom-button' onClick={() => this.props.updateSelection(null)}>
+                <button className='undo-button' onClick={() => this.props.updateSelection(null)}>
                   Undo selection
                 </button>
               </div>
@@ -137,8 +137,10 @@ class TicketPurchaseMain extends React.Component {
         )}
         {(this.state.view === this.views.CONFIRMATION) &&
           <div>
+            <p>Are you sure you want to purchase this ticket?</p>
+            <p>{this.state.selectedOrigin} → {this.state.selectedDestination}</p>
             <button className='custom-button' onClick={() => this.changeView(this.views.PURCHASING)}>
-              Change Selections
+              Change selections
             </button>
             <button className='custom-button' onClick={() => {
               this.purchaseTicket();
@@ -147,11 +149,6 @@ class TicketPurchaseMain extends React.Component {
             }}>
               Purchase
             </button>
-            <TicketConfirmation
-              context={{
-                origin: this.state.selectedOrigin,
-                destination: this.state.selectedDestination,
-              }} />
           </div>
         }
       </div>
@@ -184,26 +181,16 @@ class TicketSelection extends React.Component {
   }
 }
 
-class TicketConfirmation extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>ticket confirmation view</p>
-        <p>origin: {this.props.context.origin}</p>
-        <p>destination: {this.props.context.destination}</p>
-      </div>
-    );
-  }
-}
-
 class PurchaseHistory extends React.Component {
   render() {
     return (
       <div>
-        <p>purchase history view</p>
-        <ul>
+        <p>Purchase history</p>
+        <ul class="purchase-history">
           {this.props.purchases.map(purchase =>
-            <li key={UUID.v1()}>{`origin: ${purchase.origin} | destination: ${purchase.destination}`}</li>
+            <li class="purchase-history" key={UUID.v1()}>
+              {`${purchase.origin} → ${purchase.destination}`}
+            </li>
           )}
         </ul>
       </div>
@@ -248,6 +235,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <ToastContainer autoClose={3000} />
+
           { this.state.view === this.views.HOME && (
             <div>
               <img src="mbta.png" alt="mbta logo" />
@@ -259,6 +247,7 @@ class App extends Component {
               </button>
             </div>
           )}
+
           { this.state.view === this.views.PURCHASING && (
             <div>
               <img src="mbta_icon_back.png" alt="Home" className="home-button" onClick={() => this.changeView(this.views.HOME)}/>
@@ -269,6 +258,7 @@ class App extends Component {
                 view={this.views.CONFIRMATION} />
             </div>
           )}
+
           { this.state.view === this.views.HISTORY && (
             <div>
               <img src="mbta_icon_back.png" alt="Home" className="home-button" onClick={() => this.changeView(this.views.HOME)}/>
