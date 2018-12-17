@@ -4,9 +4,7 @@ The 2 functionalities that this application simulates are:
 - purchasing commuter rail tickets
 - viewing ticket purchase history
 
-![](./public/mTicket_screenshot.png?raw=true)
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center"><img src="./public/home.png" /></p>
 
 
 ## Running the application
@@ -35,7 +33,7 @@ Prompts for confirmation of purchase while showing the selected origin stop and 
 Displays list of tickets that have been purchased.
 
 
-## Additional system requirements
+## System requirements
 
 - Commuter rail data should be retrieved from [./commuterrail-data.json](./commuterrail-data.json).
 - The purchase history does not need to persist if the page is refreshed.
